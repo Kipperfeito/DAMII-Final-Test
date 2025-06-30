@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import estilo from "../estilo";
 import { auth } from '../firebase';
 import { useNavigation } from '@react-navigation/native';
+import { Image } from 'react-native';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -15,11 +16,12 @@ export default function Home() {
             })
     }
 
-    return(
+    return (
         <View style={estilo.container}>
-            <Text style={{marginBottom:20}}>
-                Usuário logado: {auth.currentUser?.email}
-            </Text>
+            <Image
+                source={require('../assets/logo.png')}
+                style={{ width: 500, height: 500 }}
+            />
 
             <View style={estilo.buttonContainer}>
                 <TouchableOpacity

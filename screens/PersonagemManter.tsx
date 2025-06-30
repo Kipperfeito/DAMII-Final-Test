@@ -30,7 +30,7 @@ export default function PersonagemManter() {
             parseInt(inteligencia)
         );
     };
-    
+
     const pontosRestantes = TOTAL_PONTOS - somaAtributos();
 
     const refPersonagem = firestore
@@ -59,7 +59,7 @@ export default function PersonagemManter() {
                     Limpar();
                 })
                 .catch(error => alert(error.message));
-        } 
+        }
         else {
             const refId = refPersonagem.doc();
             personagem.id = refId.id;
@@ -74,7 +74,7 @@ export default function PersonagemManter() {
 
     const Limpar = () => {
         setFormPersonagem({});
-        setImagePath('https://i.pinimg.com/736x/b4/ef/d2/b4efd2db313e76462f0a6e7ae4509af3.jpg');
+        setImagePath('https://img.icons8.com/?size=100&id=24717&format=png&color=000000');
     };
 
     const selecionaFoto = () => {
@@ -129,10 +129,13 @@ export default function PersonagemManter() {
     return (
         <View style={estilo.container}>
             <View style={estilo.inputContainer}>
-                <TouchableOpacity style={estilo.foto} onPress={selecionaFoto}>
+                {(!formPersonagem.foto || formPersonagem.foto.trim() === '') && (
+                    <Text style={estilo.fotoTexto}>Adicionar Foto</Text>
+                )}
+                <TouchableOpacity style={{ position: 'relative' }} onPress={selecionaFoto}>
                     <Image source={{ uri: imagePath }} style={estilo.foto} />
+                    {(imagePath === '' || imagePath === 'https://img.icons8.com/?size=100&id=24717&format=png&color=000000')}
                 </TouchableOpacity>
-
                 <TextInput
                     placeholder='Nome'
                     style={estilo.input}
@@ -177,9 +180,9 @@ export default function PersonagemManter() {
             </View>
 
             <View style={estilo.buttonContainer}>
-            <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
-                Pontos restantes: {pontosRestantes < 0 ? 0 : pontosRestantes}
-            </Text>
+                <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
+                    Pontos restantes: {pontosRestantes < 0 ? 0 : pontosRestantes}
+                </Text>
                 <TouchableOpacity style={estilo.button} onPress={salvar}>
                     <Text style={estilo.buttonText}>Salvar</Text>
                 </TouchableOpacity>
@@ -188,6 +191,6 @@ export default function PersonagemManter() {
                     <Text style={[estilo.buttonText, estilo.buttonOutlineText]}>Limpar</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </View >
     );
 }
